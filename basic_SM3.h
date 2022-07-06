@@ -7,9 +7,9 @@ string BinToHex(string str)
 {
 	string hex = "";    
 	int temp = 0;       
-	while (str.size() % 4 != 0)  //将二进制数长度转换为4的倍数
+	while (str.size() % 4 != 0)  //Converts a binary number length to a multiple of 4
 	{
-		str = "0" + str;     //最高位添0直到长度为4的倍数即可
+		str = "0" + str;     //Add 0 to the highest digit until it's a multiple of length 4
 	}
 	for (int i = 0; i < str.size(); i += 4) 
 	{
