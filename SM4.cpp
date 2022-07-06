@@ -1,5 +1,3 @@
-﻿
-
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
@@ -27,7 +25,6 @@ static void dump_buf_8(uint8_t* buf, uint32_t len)
 			i == len - 1 ? "\r\n" : "");
 	}
 }
-
 
 const uint32_t fk[4] = {
 	0xa3b1bac6,
@@ -67,14 +64,12 @@ const uint8_t s_box[256] = {
 	0x18,0xf0,0x7d,0xec,0x3a,0xdc,0x4d,0x20,0x79,0xee,0x5f,0x3e,0xd7,0xcb,0x39,0x48
 };
 
-
 uint32_t move(uint32_t data, int length)
 {
 	uint32_t result = 0;
 	result = (data << length) ^ (data >> (32 - length));
 	return result;
 }
-
 
 uint32_t t(uint32_t input)
 {
