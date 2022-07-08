@@ -1,4 +1,5 @@
 #include "basic_SM3.h"
+//#include "advanced_SM3.h"
 
 int main() 
 {
