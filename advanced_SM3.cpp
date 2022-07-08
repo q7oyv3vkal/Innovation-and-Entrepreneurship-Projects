@@ -11,7 +11,8 @@ string BinToHex(string str)
 	{
 		str = "0" + str;     //Add 0 to the highest digit until it's a multiple of length 4
 	}
-	for (int i = 0; i < str.size(); i += 4)
+	int tt = str.size();
+	for (int i = 0; i < tt ; i += 4)
 	{
 		temp = (str[i] - '0') * 8 + (str[i + 1] - '0') * 4 + (str[i + 2] - '0') * 2 + (str[i + 3] - '0') * 1;
 		if (temp < 10)
@@ -26,7 +27,8 @@ string HexToBin(string str)
 {
 	string bin = "";
 	string table[16] = { "0000","0001","0010","0011","0100","0101","0110","0111","1000","1001","1010","1011","1100","1101","1110","1111" };
-	for (int i = 0; i < str.size(); i++)
+	int tt = str.size();
+	for (int i = 0; i < tt; i++)
 	{
 		if (str[i] >= 'A' && str[i] <= 'F')
 			bin += table[str[i] - 'A' + 10];
@@ -39,7 +41,8 @@ string HexToBin(string str)
 int BinToDec(string str)
 {
 	int dec = 0;
-	for (int i = 0; i < str.size(); i+=2)
+	int tt = str.size();
+	for (int i = 0; i < tt; i+=2)
 	{
 		dec += (str[i] - '0') * pow(2, str.size() - i - 1);
 		dec += (str[i + 1] - '0') * pow(2, str.size() - i);
@@ -61,7 +64,8 @@ string DecToBin(int str)
 int HexToDec(string str)
 {
 	int dec = 0;
-	for (int i = 0; i < str.size(); i++)
+	int tt = str.size();
+	for (int i = 0; i < tt; i++)
 	{
 		if (str[i] >= 'A' && str[i] <= 'F')
 			dec += (str[i] - 'A' + 10) * pow(16, str.size() - i - 1);
@@ -91,12 +95,14 @@ string DecToHex(int str)
 string padding(string str)
 {
 	string res = "";
-	for (int i = 0; i < str.size(); i++)
+	int tt = str.size();
+	for (int i = 0; i < tt; i++)
 	{
 		res += DecToHex((int)str[i]);
 	}
 	cout << "The ASCII code of the input string is：" << endl;
-	for (int i = 0; i < res.size(); i++)
+	int t2 = res.size();
+	for (int i = 0; i < t2; i++)
 	{
 		cout << res[i];
 		if ((i + 1) % 8 == 0)
@@ -105,9 +111,9 @@ string padding(string str)
 			cout << endl;
 	}
 	cout << endl;
-	int res_length = res.size() * 4;       //The length of the string is in bin
+	int res_length = t2 * 4;       //The length of the string is in bin
 	res += "8";                             //hex：+8
-	while (res.size() % 128 != 112)
+	while (t2 % 128 != 112)
 	{
 		res += "0";
 	}
