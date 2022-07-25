@@ -5,9 +5,9 @@ The project of Cyber space security innovation and entrepreneurship course
 
 1.项目简介：在理解SM4算法的基础上使用C语言实现CBC模式基础SM4算法
 
-2.项目名称：SM4.cpp
+2.项目名称：SM4.cpp（SM4_annotation.cpp为加入注释后，且有时间输出版本）
 
-3.具体代码说明：详情请见SM4.cpp项目中注释部分
+3.具体代码说明：详情请见SM4_annotation.cpp项目中注释部分
 
 4.运行指导：本项目中直接设定128位的密钥（key[4]）为0x01234567,0x89abcdef,0xfedcba98,0x76543210，明文(plain[4])为0x01020304,0x05060708,0x09101112,0x13141516。运行时直接点击进行运行就能得到加密结果与运行时间，如果要更改加密内容只需要修改代码部分内容即可。
 
