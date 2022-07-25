@@ -13,4 +13,6 @@ The project of Cyber space security innovation and entrepreneurship course
 
 4.代码运行全过程截图（由于本项目完成过程较为统一，因此只提交最后运行成功的截图）：
 
+![image](https://github.com/q7oyv3vkal/Innovation-and-Entrepreneurship-Projects/blob/Image/1.png)
+
 5.个人具体贡献：独立完成SM4编写
