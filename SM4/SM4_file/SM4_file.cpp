@@ -108,7 +108,7 @@ int main()
 	QueryPerformanceFrequency(&Frequency);
 	QueryPerformanceCounter(&BegainTime);
 	ifstream inFile; //创建处理文件输入的对象
-	inFile.open("C:\\Users\\qdykg\\source\\repos\\excerse\\test.txt", ios::in);
+	inFile.open("C:\\test.txt", ios::in);
 	if (!inFile.is_open())
 	{
 		cout << "文件打开失败" << endl;
