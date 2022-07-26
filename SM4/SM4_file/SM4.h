@@ -1,12 +1,19 @@
+#pragma once
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
 #include <windows.h>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
-//方便输出
+
 void dump_buf_32(uint32_t* buf, uint32_t len);
 
-//系统参数
+
+void dump_buf_8(uint8_t* buf, uint32_t len);
+
+
 const uint32_t fk[4] = {
 	0xa3b1bac6,
 	0x56aa3350,
@@ -14,7 +21,6 @@ const uint32_t fk[4] = {
 	0xb27022dc
 };
 
-//固定参数
 const uint32_t ck[32] = {
 	0x00070e15,0x1c232a31,0x383f464d,0x545b6269,
 	0x70777e85,0x8c939aa1,0xa8afb6bd,0xc4cbd2d9,
@@ -26,7 +32,6 @@ const uint32_t ck[32] = {
 	0x10171e25,0x2c333a41,0x484f565d,0x646b7279
 };
 
-//非线性转化用到的sbox对照表
 const uint8_t s_box[256] = {
 
 	0xd6,0x90,0xe9,0xfe,0xcc,0xe1,0x3d,0xb7,0x16,0xb6,0x14,0xc2,0x28,0xfb,0x2c,0x05,
@@ -50,10 +55,16 @@ const uint8_t s_box[256] = {
 
 uint32_t move(uint32_t data, int length);		//移位运算
 
+
+
 uint32_t T(uint32_t input);		//T置换
+
 
 void T_1(uint32_t* input, uint32_t* rk);		//T'置换
 
+
 void F(uint32_t* input, uint32_t rk, uint32_t* output);	//轮函数
 
-void SM4(uint32_t *plain, uint32_t *key);  //SM4运算（每组）
+
+void SM4(uint32_t* plain, uint32_t* key);
+
