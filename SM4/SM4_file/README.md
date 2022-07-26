@@ -16,8 +16,10 @@ SM4_file.cpp（主要用于读取文件完成加密）
 
 4.代码运行全过程截图（由于本项目输出内容较多，因此只提供输出结尾部分代表“成功”与有时间的截图）：
 
-![image]([https://github.com/q7oyv3vkal/Innovation-and-Entrepreneurship-Projects/blob/Image/1.png](https://github.com/q7oyv3vkal/Innovation-and-Entrepreneurship-Projects/blob/Image/SM4_file.png))
+![image](https://github.com/q7oyv3vkal/Innovation-and-Entrepreneurship-Projects/blob/Image/SM4_file.png)
 
 5.个人具体贡献：在已有的SM4_basic项目的基础上独立完成本项目
 
 6.其他问题：本项目并未写在ppt中，但是老师在课堂上曾经提及建议同学们实现。
+
+本次实验中我实验使用的test.txt文件也一并上传至github中。
