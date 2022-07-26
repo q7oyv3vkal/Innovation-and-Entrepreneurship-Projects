@@ -1,10 +1,8 @@
-#include "SM4.h"//头文件
+#include "SM4.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
 using namespace std;
-
-
 
 void dump_buf_32(uint32_t* buf, uint32_t len)
 {
@@ -24,7 +22,6 @@ uint32_t move(uint32_t data, int length)		//移位运算
 	result = (data << length) ^ (data >> (32 - length));
 	return result;
 }
-
 
 uint32_t T(uint32_t input)		//T置换
 {
@@ -70,8 +67,6 @@ void F(uint32_t input[4], uint32_t rk, uint32_t output[4])	//轮函数
 	output[3] = input[0] ^ T(input[1] ^ input[2] ^ input[3] ^ rk);
 }
 
-
-
 void SM4(uint32_t plain[4], uint32_t key[4])
 {
 	uint32_t output[4];
@@ -95,7 +90,6 @@ void SM4(uint32_t plain[4], uint32_t key[4])
 	dump_buf_32(result, 4);
 }
 
-
 int main()
 {
 	uint32_t key[4] = {
@@ -108,7 +102,7 @@ int main()
 	QueryPerformanceFrequency(&Frequency);
 	QueryPerformanceCounter(&BegainTime);
 	ifstream inFile; //创建处理文件输入的对象
-	inFile.open("C:\\test.txt", ios::in);
+	inFile.open("E:\\test.txt", ios::in);
 	if (!inFile.is_open())
 	{
 		cout << "文件打开失败" << endl;
@@ -120,36 +114,42 @@ int main()
 		int flag = 0;
 		for (int i = 0; i < 4; i++)
 		{
-			string temp = " ";
+			uint32_t temp = 0;
 			for (int j = 0; j < 8; j++)
 			{
 				char val;
 				inFile.read((char*)&val, 1);//获取文件第一个字节的内容
-				if (val == ' ')
+				int tt = 0;
+				switch (val)
 				{
-					j--;
+				case '0':case'1':case'2':case'3':case'4':case'5':case'6':case'7':case'8':case'9':
+					tt = val - '0';
+					break;
+				case'a':case'b':case'c':case'd':case'e':case'f':
+					tt = (int)val - 87;
+					break;
+				default:
+					break;
 				}
-				else
-				{
-					temp = temp + val;           //拼接
-				}
+				temp = temp + tt * pow((double)16, (double)(7 - j));
 				if (j == 7)
 				{
-					//ClearAllSpace(temp);
-					//string 转化成char* 再转化成uint32_t
-					char* p3 = NULL;
-					p3 = (char*)malloc(temp.length() * sizeof(char));
-					temp.copy(p3, temp.length(), 0);
-					plain[flag] = strtol(p3, NULL, 16);
+					plain[flag] = temp;
 					flag++;
 				}
 			}
 		}
+		if (inFile.peek() == EOF)
+		{
+			break;
+		}
 		SM4(plain, key);
 	}
 	inFile.close();
+	printf("Success");
 	QueryPerformanceCounter(&EndTime);
 	double time = (double)(EndTime.QuadPart - BegainTime.QuadPart) / Frequency.QuadPart;
 	printf("用时 %f seconds\n", time);
 	return 0;
 }
+
