@@ -8,13 +8,13 @@ SM4_file.cpp（主要用于读取文件完成加密）
 
 3.具体代码说明：详情请见SM4.h与SM4_file.cpp项目中注释部分
 
-4.运行指导：本项目中直接设定128位的密钥（key[4]）为0x01234567,0x89abcdef,0xfedcba98,0x76543210，明文则在SM4_file.cpp中的第111行中代码中：
+4.运行指导：本项目中直接设定128位的密钥（key[4]）为0x01234567,0x89abcdef,0xfedcba98,0x76543210，明文则在SM4_file.cpp中的第105行中代码中：
 
 `<inFile.open("C:\\test.txt", ios::in);>`  
 
 修改相应路径即可。运行时直接点击进行运行就能得到加密结果与运行时间，如果要更改加密内容只需要修改代码部分内容即可。
 
-4.代码运行全过程截图（由于本项目完成过程较为统一，因此只提交最后运行成功的截图）：
+4.代码运行全过程截图（由于本项目输出内容较多，因此只提供输出结尾部分代表“成功”与有时间的截图）：
 
 ![image](https://github.com/q7oyv3vkal/Innovation-and-Entrepreneurship-Projects/blob/Image/1.png)
 
