@@ -1,4 +1,3 @@
-
 from gmssl import sm3, func
 import random
 import Mysm3             #修改python库中的部分sm3函数，方便攻击
