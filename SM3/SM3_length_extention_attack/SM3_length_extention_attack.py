@@ -2,23 +2,19 @@ from gmssl import sm3, func
 import random
 import Mysm3             #修改python库中的部分sm3函数，方便攻击
 import struct
+import time
 
-secret = str(random.random())
-secret_hash = sm3.sm3_hash(func.bytes_to_list(bytes(secret, encoding='utf-8')))
-secret_len = len(secret)
-append_m = "1901210403"  
+#同样使用将浮点数转化成字符串形式的过程生成
+#cip_test:加密密文，cip_hash:加密明文，cip_len:明文长度，append_m:附加消息
+start=time.time()
+cip_test = str(random.random())
+cip_hash = sm3.sm3_hash(func.bytes_to_list(bytes(cip_test, encoding='utf-8')))
+cip_len = len(cip_test)
+append_m = "1901210403"
 pad_str = ""
 pad = []
 
-
 def generate_guess_hash(old_hash, secret_len, append_m):
-    """
-    SM3长度扩展攻击
-    :param old_hash: secret的hash值
-    :param secret_len: secret的长度
-    :param append_m: 附加的消息
-    :return: hash(secret + padding + append_m)
-    """
     vectors = []
     message = ""
     for r in range(0, len(old_hash), 8):
@@ -32,7 +28,6 @@ def generate_guess_hash(old_hash, secret_len, append_m):
     message = padding(message)
     message.extend(func.bytes_to_list(bytes(append_m, encoding='utf-8')))
     return Mysm3.sm3_hash(message, vectors)
-
 
 def padding(msg):
     mlen = len(msg)
@@ -53,26 +48,26 @@ def padding(msg):
         pad_str += str(hex(msg[j]))
     return msg
 
-
-guess_hash = generate_guess_hash(secret_hash, secret_len, append_m)
-new_msg = func.bytes_to_list(bytes(secret, encoding='utf-8'))
+guess_hash = generate_guess_hash(cip_hash, cip_len, append_m)
+new_msg = func.bytes_to_list(bytes(cip_test, encoding='utf-8'))
 new_msg.extend(pad)
 new_msg.extend(func.bytes_to_list(bytes(append_m, encoding='utf-8')))
-new_msg_str = secret + pad_str + append_m
+new_msg_str = cip_test + pad_str + append_m
 
 new_hash = sm3.sm3_hash(new_msg)
+end=time.time()
 
-print("secret:\n "+secret)
-print("secret length:%d\n" % len(secret))
-print("secret hash:\n" + secret_hash)
+
+print("消息:\n "+cip_test)
+print("消息长度:%d\n" % len(cip_test))
+print("hash后消息:\n" + cip_hash)
 print("附加消息:\n", append_m)
-print("计算人为构造的消息的hash值\n")
-print("hash_guess:\n" + guess_hash)
-print("-----------------------------------------------------")
-print("验证攻击是否成功\n")
+print("人为构造的消息（加入附加消息）的hash值\n",guess_hash)
 print("new message: \n" + new_msg_str)
 print("hash(new message):\n" + new_hash)
 if new_hash == guess_hash:
-    print("success!")
+    print("success")
 else:
-    print("fail..")
+    print("fail")
+
+print(end-start,'seconds\n')
