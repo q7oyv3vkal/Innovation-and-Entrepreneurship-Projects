@@ -1,78 +1,28 @@
-from gmssl import sm3, func
 import random
-import Mysm3             #修改python库中的部分sm3函数，方便攻击
-import struct
+import time
+from gmssl import sm3, func
 
-secret = str(random.random())
-secret_hash = sm3.sm3_hash(func.bytes_to_list(bytes(secret, encoding='utf-8')))
-secret_len = len(secret)
-append_m = "1901210403"  
-pad_str = ""
-pad = []
+#通过生成随机浮点数转化成str的形式生成随即长度的字符串，并用库函数加密
+cip_text = str(random.random())
+cip_len = len(cip_text)
+cip_hash = sm3.sm3_hash(func.bytes_to_list(bytes(cip_text, encoding='utf-8')))
 
+#攻击函数（test_len:攻击长度）
+def Birthday_attack(test_len):
+    num = int(2 ** (test_len / 2))
+    ans = [-1] * 2**test_len
+    #循环遍历，对于每一位
+    for i in range(num):
+        temp = int(cip_hash[0:int(test_len / 4)], 16)
+        if ans[temp] == -1:
+            ans[temp] = i
+        else:
+            return hex(temp)
 
-def generate_guess_hash(old_hash, secret_len, append_m):
-    """
-    SM3长度扩展攻击
-    :param old_hash: secret的hash值
-    :param secret_len: secret的长度
-    :param append_m: 附加的消息
-    :return: hash(secret + padding + append_m)
-    """
-    vectors = []
-    message = ""
-    for r in range(0, len(old_hash), 8):
-        vectors.append(int(old_hash[r:r + 8], 16))
-    if secret_len > 64:
-        for i in range(0, int(secret_len / 64) * 64):
-            message += 'a'
-    for i in range(0, secret_len % 64):
-        message += 'a'
-    message = func.bytes_to_list(bytes(message, encoding='utf-8'))
-    message = padding(message)
-    message.extend(func.bytes_to_list(bytes(append_m, encoding='utf-8')))
-    return Mysm3.sm3_hash(message, vectors)
-
-
-def padding(msg):
-    mlen = len(msg)
-    msg.append(0x80)
-    mlen += 1
-    tail = mlen % 64
-    range_end = 56
-    if tail > range_end:
-        range_end = range_end + 64
-    for i in range(tail, range_end):
-        msg.append(0x00)
-    bit_len = (mlen - 1) * 8
-    msg.extend([int(x) for x in struct.pack('>q', bit_len)])
-    for j in range(int((mlen - 1) / 64) * 64 + (mlen - 1) % 64, len(msg)):
-        global pad
-        pad.append(msg[j])
-        global pad_str
-        pad_str += str(hex(msg[j]))
-    return msg
-
-
-guess_hash = generate_guess_hash(secret_hash, secret_len, append_m)
-new_msg = func.bytes_to_list(bytes(secret, encoding='utf-8'))
-new_msg.extend(pad)
-new_msg.extend(func.bytes_to_list(bytes(append_m, encoding='utf-8')))
-new_msg_str = secret + pad_str + append_m
-
-new_hash = sm3.sm3_hash(new_msg)
-
-print("secret:\n "+secret)
-print("secret length:%d\n" % len(secret))
-print("secret hash:\n" + secret_hash)
-print("附加消息:\n", append_m)
-print("计算人为构造的消息的hash值\n")
-print("hash_guess:\n" + guess_hash)
-print("-----------------------------------------------------")
-print("验证攻击是否成功\n")
-print("new message: \n" + new_msg_str)
-print("hash(new message):\n" + new_hash)
-if new_hash == guess_hash:
-    print("success!")
-else:
-    print("fail..")
+if __name__ == '__main__':
+    test_len = 24
+    start = time.time()
+    res = Birthday_attack(test_len)
+    end = time.time()
+    print("前",test_len,"位碰撞为{}".format(res))
+    print(end- start,'seconds\n')
