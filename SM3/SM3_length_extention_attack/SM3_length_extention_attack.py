@@ -10,7 +10,7 @@ start=time.time()
 cip_test = str(random.random())
 cip_hash = sm3.sm3_hash(func.bytes_to_list(bytes(cip_test, encoding='utf-8')))
 cip_len = len(cip_test)
-append_m = "1901210403"
+append_m = "202000460066"
 pad_str = ""
 pad = []
 
@@ -58,13 +58,13 @@ new_hash = sm3.sm3_hash(new_msg)
 end=time.time()
 
 
-print("消息:\n "+cip_test)
-print("消息长度:%d\n" % len(cip_test))
-print("hash后消息:\n" + cip_hash)
-print("附加消息:\n", append_m)
-print("人为构造的消息（加入附加消息）的hash值\n",guess_hash)
-print("new message: \n" + new_msg_str)
-print("hash(new message):\n" + new_hash)
+print("消息:",cip_test)
+print("消息长度:%d" % len(cip_test))
+print("hash后消息:" + cip_hash)
+print("附加消息:", append_m)
+print("人为构造的消息（加入附加消息）的hash值",guess_hash)
+print("new message:\n " + new_msg_str)
+print("hash(new message):" + new_hash)
 if new_hash == guess_hash:
     print("success")
 else:
