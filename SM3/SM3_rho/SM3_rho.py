@@ -16,7 +16,7 @@ def SM3_rho_attack(n):
     for j in range(cnt):
         #攻击成功
         if Hash_sm3(cip_hash1)[:int(n/4)] == Hash_sm3(cip_hash2)[:int(n/4)]:
-            return [Hash_sm3(cip_hash1)[:int(n/4)], cip_hash1, cip_hash2]
+            return [ cip_hash1, cip_hash2,Hash_sm3(cip_hash1)[:int(n/4)],]
         else:
             cip_hash1 = Hash_sm3(cip_hash1)
             cip_hash2 = Hash_sm3(cip_hash2)
@@ -27,7 +27,7 @@ if __name__ == '__main__':
     start = time.time()
     res=SM3_rho_attack(n)
     end=time.time()
-    print("消息1:", res[1])
-    print("消息2:", res[2])
-    print("碰撞:", res[0])
+    print("消息1:", res[0])
+    print("消息2:", res[1])
+    print("碰撞:", res[2])
     print(end-start,"seconds\n")
