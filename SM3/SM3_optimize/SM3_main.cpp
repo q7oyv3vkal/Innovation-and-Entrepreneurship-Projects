@@ -16,16 +16,16 @@ int main()
 		cout << "示例 " + to_string(num + 1) + " ：输入消息为字符串: " + str[num] << endl;
 		cout << endl;
 		string paddingValue = padding(str[num]);
-
-		for (int i = 0; i < paddingValue.size() / 64; i++)
-		{
-			for (int j = 0; j < 8; j++)
-			{
-				cout << paddingValue.substr(i * 64 + j * 8, 8) << "  ";
-			}
-			cout << endl;
-		}
-		cout << endl;
+		//cout << "填充后的消息为：" << endl;
+		//for (int i = 0; i < paddingValue.size() / 64; i++)
+		//{
+		//	for (int j = 0; j < 8; j++)
+		//	{
+		//		cout << paddingValue.substr(i * 64 + j * 8, 8) << "  ";
+		//	}
+		//	cout << endl;
+		//}
+		//cout << endl;
 		string result = iteration(paddingValue);
 		QueryPerformanceCounter(&EndTime);
 		cout << "杂凑值：" << endl;
