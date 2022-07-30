@@ -64,6 +64,7 @@ def kdf(z,klen):
     k='0'*((256-(len(bin(int(k,16))[2:])%256))%256)+bin(int(k,16))[2:]
     return k[:klen]
 
+#dB：随机数，（xB,yB）椭圆曲线的线点C1
 dB=randint(1,n-1)
 xB,yB=Mutipoint(gx,gy,dB,a,p)
   
@@ -74,15 +75,18 @@ def SM2_encrypt(m:str):
     klen=len(m)
     while True:
         k=randint(1, n)
+        #判断S=0？分别计算[k]Pb和t
         while k==dB:
             k=randint(1, n)
         x2,y2=Mutipoint(xB, yB, k, a, p)
         x2,y2='{:0256b}'.format(x2),'{:0256b}'.format(y2)
         t=kdf(x2+y2, klen)
+        #判断t是否全0，不是全0就可以退出循环
         if int(t,2)!=0:
             break
     x1,y1=Mutipoint(gx, gy, k, a, p)
     x1,y1=(plen-len(hex(x1)[2:]))*'0'+hex(x1)[2:],(plen-len(hex(y1)[2:]))*'0'+hex(y1)[2:]
+    #计算C2=M与t的异或值，C3则是（x2||M||y2）的哈希值
     c1='04'+x1+y1
     c2=((klen//4)-len(hex(int(m,2)^int(t,2))[2:]))*'0'+hex(int(m,2)^int(t,2))[2:]
     c3=sm3.sm3_hash(hex(int(x2+m+y2,2))[2:])
