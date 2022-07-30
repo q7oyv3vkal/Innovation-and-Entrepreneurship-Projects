@@ -1,17 +1,52 @@
+//#pragma once
+///*
+//* sm3.h
+//*
+//* 为使此算法兼容32位、64位下Linux或Windows系统，
+//* 选择 int 来表示 32 位整数。
+//* 消息长度最大限定为 2**32 - 1（单位：比特），
+//* 且为 8 的倍数（消息的最小单元为字节）。
+//*/
+//#ifndef _SM3_H_
+//#define _SM3_H_
+//
+///*
+//* SM3算法产生的哈希值大小（单位：字节）
+//*/
+//#define SM3_HASH_SIZE 32 
+//
+///*
+//* SM3上下文
+//*/
+//typedef struct SM3Context
+//{
+//	unsigned int intermediateHash[SM3_HASH_SIZE / 4];
+//	unsigned char messageBlock[64];
+//} SM3Context;
+//
+///*
+//* SM3计算函数
+//*/
+//unsigned char* SM3Calc(const unsigned char* message,
+//	unsigned int messageLen, unsigned char digest[SM3_HASH_SIZE]);
+//
+//#endif // _SM3_H_
+
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <windows.h>
 using namespace std;
 
 string BinToHex(string str)
 {
-	string hex = "";    
-	int temp = 0;       
+	string hex = "";
+	int temp = 0;
 	while (str.size() % 4 != 0)  //Converts a binary number length to a multiple of 4
 	{
 		str = "0" + str;     //Add 0 to the highest digit until it's a multiple of length 4
 	}
-	for (int i = 0; i < str.size(); i += 4) 
+	for (int i = 0; i < str.size(); i += 4)
 	{
 		temp = (str[i] - '0') * 8 + (str[i + 1] - '0') * 4 + (str[i + 2] - '0') * 2 + (str[i + 3] - '0') * 1;
 		if (temp < 10)
@@ -22,7 +57,7 @@ string BinToHex(string str)
 	return hex;
 }
 
-string HexToBin(string str) 
+string HexToBin(string str)
 {
 	string bin = "";
 	string table[16] = { "0000","0001","0010","0011","0100","0101","0110","0111","1000","1001","1010","1011","1100","1101","1110","1111" };
@@ -36,20 +71,20 @@ string HexToBin(string str)
 	return bin;
 }
 
-int BinToDec(string str) 
+int BinToDec(string str)
 {
 	int dec = 0;
-	for (int i = 0; i < str.size(); i++) 
+	for (int i = 0; i < str.size(); i++)
 	{
 		dec += (str[i] - '0') * pow(2, str.size() - i - 1);
 	}
 	return dec;
 }
 
-string DecToBin(int str) 
+string DecToBin(int str)
 {
 	string bin = "";
-	while (str >= 1) 
+	while (str >= 1)
 	{
 		bin = to_string(str % 2) + bin;
 		str = str / 2;
@@ -57,29 +92,29 @@ string DecToBin(int str)
 	return bin;
 }
 
-int HexToDec(string str) 
+int HexToDec(string str)
 {
 	int dec = 0;
-	for (int i = 0; i < str.size(); i++) 
+	for (int i = 0; i < str.size(); i++)
 	{
-		if (str[i] >= 'A' && str[i] <= 'F') 
+		if (str[i] >= 'A' && str[i] <= 'F')
 			dec += (str[i] - 'A' + 10) * pow(16, str.size() - i - 1);
-		else 
+		else
 			dec += (str[i] - '0') * pow(16, str.size() - i - 1);
 	}
 	return dec;
 }
 
-string DecToHex(int str) 
+string DecToHex(int str)
 {
 	string hex = "";
 	int temp = 0;
-	while (str >= 1) 
+	while (str >= 1)
 	{
 		temp = str % 16;
-		if (temp < 10 && temp >= 0) 
+		if (temp < 10 && temp >= 0)
 			hex = to_string(temp) + hex;
-		else 
+		else
 			hex += ('A' + (temp - 10));
 		str = str / 16;
 	}
@@ -94,11 +129,11 @@ string padding(string str)
 	{
 		res += DecToHex((int)str[i]);
 	}
-	cout << "The ASCII code of the input string is：" << endl;
-	for (int i = 0; i < res.size(); i++) 
+	cout << "输入消息的ASCII码为：" << endl;
+	for (int i = 0; i < res.size(); i++)
 	{
 		cout << res[i];
-		if ((i + 1) % 8 == 0) 
+		if ((i + 1) % 8 == 0)
 			cout << "  ";
 		if ((i + 1) % 64 == 0 || (i + 1) == res.size())
 			cout << endl;
@@ -106,12 +141,12 @@ string padding(string str)
 	cout << endl;
 	int res_length = res.size() * 4;       //The length of the string is in bin
 	res += "8";                             //hex：+8
-	while (res.size() % 128 != 112) 
+	while (res.size() % 128 != 112)
 	{
 		res += "0";
 	}
 	string res_len = DecToHex(res_length); //The length of string
-	while (res_len.size() != 16) 
+	while (res_len.size() != 16)
 	{
 		res_len = "0" + res_len;
 	}
@@ -132,26 +167,26 @@ string XOR(string str1, string str2)
 	string res1 = HexToBin(str1);
 	string res2 = HexToBin(str2);
 	string res = "";
-	for (int i = 0; i < res1.size(); i++) 
+	for (int i = 0; i < res1.size(); i++)
 	{
 		if (res1[i] == res2[i])
 			res += "0";
-		else 
+		else
 			res += "1";
 	}
 	return BinToHex(res);
 }
 
-string AND(string str1, string str2) 
+string AND(string str1, string str2)
 {
 	string res1 = HexToBin(str1);
 	string res2 = HexToBin(str2);
 	string res = "";
-	for (int i = 0; i < res1.size(); i++) 
+	for (int i = 0; i < res1.size(); i++)
 	{
 		if (res1[i] == '1' && res2[i] == '1')
 			res += "1";
-		else 
+		else
 			res += "0";
 	}
 	return BinToHex(res);
@@ -162,7 +197,7 @@ string OR(string str1, string str2)
 	string res1 = HexToBin(str1);
 	string res2 = HexToBin(str2);
 	string res = "";
-	for (int i = 0; i < res1.size(); i++) 
+	for (int i = 0; i < res1.size(); i++)
 	{
 		if (res1[i] == '0' && res2[i] == '0')
 			res += "0";
@@ -172,15 +207,15 @@ string OR(string str1, string str2)
 	return BinToHex(res);
 }
 
-string NOT(string str) 
+string NOT(string str)
 {
 	string res1 = HexToBin(str);
 	string res = "";
 	for (int i = 0; i < res1.size(); i++)
 	{
-		if (res1[i] == '0') 
+		if (res1[i] == '0')
 			res += "1";
-		else 
+		else
 			res += "0";
 	}
 	return BinToHex(res);
@@ -193,60 +228,60 @@ char binXor(char str1, char str2)
 }
 
 //And bit by bit
-char binAnd(char str1, char str2) 
+char binAnd(char str1, char str2)
 {
 	return (str1 == '1' && str2 == '1') ? '1' : '0';
 }
 
 //mod 2^32
-string ModAdd(string str1, string str2) 
+string ModAdd(string str1, string str2)
 {
 	string res1 = HexToBin(str1);
 	string res2 = HexToBin(str2);
 	char temp = '0';
 	string res = "";
-	for (int i = res1.size() - 1; i >= 0; i--) 
+	for (int i = res1.size() - 1; i >= 0; i--)
 	{
 		res = binXor(binXor(res1[i], res2[i]), temp) + res;
 		if (binAnd(res1[i], res2[i]) == '1')
 			temp = '1';
 		else {
-			if (binXor(res1[i], res2[i]) == '1') 
+			if (binXor(res1[i], res2[i]) == '1')
 				temp = binAnd('1', temp);
-			else 
+			else
 				temp = '0';
 		}
 	}
 	return BinToHex(res);
 }
 
-string P1(string str) 
+string P1(string str)
 {
 	return XOR(XOR(str, LeftShift(str, 15)), LeftShift(str, 23));
 }
 
-string P0(string str) 
+string P0(string str)
 {
 	return XOR(XOR(str, LeftShift(str, 9)), LeftShift(str, 17));
 }
 
 string T(int j)
 {
-	if (0 <= j && j <= 15) 
+	if (0 <= j && j <= 15)
 		return "79CC4519";
-	else 
+	else
 		return "7A879D8A";
 }
 
-string FF(string str1, string str2, string str3, int j) 
+string FF(string str1, string str2, string str3, int j)
 {
-	if (0 <= j && j <= 15) 
+	if (0 <= j && j <= 15)
 		return XOR(XOR(str1, str2), str3);
-	else 
+	else
 		return OR(OR(AND(str1, str2), AND(str1, str3)), AND(str2, str3));
 }
 
-string GG(string str1, string str2, string str3, int j) 
+string GG(string str1, string str2, string str3, int j)
 {
 	if (0 <= j && j <= 15)
 		return XOR(XOR(str1, str2), str3);
@@ -262,45 +297,45 @@ string extension(string str)
 	{
 		res += XOR(XOR(P1(XOR(XOR(res.substr((i - 16) * 8, 8), res.substr((i - 9) * 8, 8)), LeftShift(res.substr((i - 3) * 8, 8), 15))), LeftShift(res.substr((i - 13) * 8, 8), 7)), res.substr((i - 6) * 8, 8));
 	}
-	cout << "The extended message is：" << endl;
-	cout << "W0,W1,……,W67：" << endl;
-	for (int i = 0; i < 8; i++)
-	{
-		for (int j = 0; j < 8; j++) 
-		{
-			cout << res.substr(i * 64 + j * 8, 8) << "  ";
-		}
-		cout << endl;
-	}
-	cout << res.substr(512, 8) << "  " << res.substr(520, 8) << "  " << res.substr(528, 8) << "  " << res.substr(536, 8) << endl;
-	cout << endl;
+	//cout << "The extended message is：" << endl;
+	//cout << "W0,W1,……,W67：" << endl;
+	//for (int i = 0; i < 8; i++)
+	//{
+	//	for (int j = 0; j < 8; j++)
+	//	{
+	//		cout << res.substr(i * 64 + j * 8, 8) << "  ";
+	//	}
+	//	cout << endl;
+	//}
+	//cout << res.substr(512, 8) << "  " << res.substr(520, 8) << "  " << res.substr(528, 8) << "  " << res.substr(536, 8) << endl;
+	//cout << endl;
 	for (int i = 0; i < 64; i++)         //W'
 	{
 		res += XOR(res.substr(i * 8, 8), res.substr((i + 4) * 8, 8));
 	}
-	cout << "W0',W1',……,W63'" << endl;
-	for (int i = 0; i < 8; i++)
-	{
-		for (int j = 0; j < 8; j++) 
-		{
-			cout << res.substr(544 + i * 64 + j * 8, 8) << "  ";
-		}
-		cout << endl;
-	}
-	cout << endl;
+	//cout << "W0',W1',……,W63'" << endl;
+	//for (int i = 0; i < 8; i++)
+	//{
+	//	for (int j = 0; j < 8; j++)
+	//	{
+	//		cout << res.substr(544 + i * 64 + j * 8, 8) << "  ";
+	//	}
+	//	cout << endl;
+	//}
+	//cout << endl;
 	return res;
 }
 
 //Message compression
-string compress(string str1, string str2) 
+string compress(string str1, string str2)
 {
 	string IV = str2;
 	string A = IV.substr(0, 8), B = IV.substr(8, 8), C = IV.substr(16, 8), D = IV.substr(24, 8), E = IV.substr(32, 8), F = IV.substr(40, 8), G = IV.substr(48, 8), H = IV.substr(56, 8);
 	string SS1 = "", SS2 = "", TT1 = "", TT2 = "";
-	cout << "Intermediate value of iterative compression: " << endl;
-	cout << "    A         B         C         D         E         F        G         H " << endl;
-	cout << A << "  " << B << "  " << C << "  " << D << "  " << E << "  " << F << "  " << G << "  " << H << endl;
-	for (int j = 0; j < 64; j++) 
+	//cout << "Intermediate value of iterative compression: " << endl;
+	//cout << "    A         B         C         D         E         F        G         H " << endl;
+	//cout << A << "  " << B << "  " << C << "  " << D << "  " << E << "  " << F << "  " << G << "  " << H << endl;
+	for (int j = 0; j < 64; j++)
 	{
 		SS1 = LeftShift(ModAdd(ModAdd(LeftShift(A, 12), E), LeftShift(T(j), (j % 32))), 7);
 		SS2 = XOR(SS1, LeftShift(A, 12));
@@ -314,10 +349,10 @@ string compress(string str1, string str2)
 		G = LeftShift(F, 19);
 		F = E;
 		E = P0(TT2);
-		cout << A << "  " << B << "  " << C << "  " << D << "  " << E << "  " << F << "  " << G << "  " << H << endl;
+		//cout << A << "  " << B << "  " << C << "  " << D << "  " << E << "  " << F << "  " << G << "  " << H << endl;
 	}
 	string res = (A + B + C + D + E + F + G + H);
-	cout << endl;
+	//cout << endl;
 	return res;
 }
 
@@ -325,14 +360,13 @@ string compress(string str1, string str2)
 string iteration(string str)
 {
 	int num = str.size() / 128;
-	cout << "Number of packets after message filling：" << to_string(num) << endl;
-	cout << endl;
+	//cout << "Number of packets after message filling：" << to_string(num) << endl;
+	//cout << endl;
 	string V = "7380166F4914B2B9172442D7DA8A0600A96F30BC163138AAE38DEE4DB0FB0E4E";
 	string B = "", extensionB = "", compressB = "";
-	for (int i = 0; i < num; i++) 
+	for (int i = 0; i < num; i++)
 	{
-		cout << "Group number " << to_string(i + 1) << endl;
-		cout << endl;
+		//cout << "Group number " << to_string(i + 1) << endl;
 		B = str.substr(i * 128, 128);
 		extensionB = extension(B);
 		compressB = compress(extensionB, V);
