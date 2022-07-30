@@ -1,22 +1,23 @@
-#include "SM3_basic.h"
-//#include "SM3_optimize.h"
+//#include "SM3_basic.h"
+#include "SM3_optimize.h"
 
 int main()
 {
-	LARGE_INTEGER BegainTime;
-	LARGE_INTEGER EndTime;
-	LARGE_INTEGER Frequency;
-	QueryPerformanceFrequency(&Frequency);
-	QueryPerformanceCounter(&BegainTime);
 	string str[2];
 	str[0] = "abc";
 	str[1] = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd";
 	for (int num = 0; num < 2; num++)
 	{
+		
 		cout << "示例 " + to_string(num + 1) + " ：输入消息为字符串: " + str[num] << endl;
 		cout << endl;
 		string paddingValue = padding(str[num]);
 		cout << "填充后的消息为：" << endl;
+		LARGE_INTEGER BegainTime;
+		LARGE_INTEGER EndTime;
+		LARGE_INTEGER Frequency;
+		QueryPerformanceFrequency(&Frequency);
+		QueryPerformanceCounter(&BegainTime);
 		for (int i = 0; i < paddingValue.size() / 64; i++)
 		{
 			for (int j = 0; j < 8; j++)
@@ -27,14 +28,15 @@ int main()
 		}
 		cout << endl;
 		string result = iteration(paddingValue);
+		QueryPerformanceCounter(&EndTime);
 		cout << "杂凑值：" << endl;
 		for (int i = 0; i < 8; i++)
 		{
 			cout << result.substr(i * 8, 8) << "  ";
 		}
 		cout << endl;
-		QueryPerformanceCounter(&EndTime);
 		double time = (double)(EndTime.QuadPart - BegainTime.QuadPart) / Frequency.QuadPart;
 		printf("用时 %f seconds\n", time);
 	}
+	return 0;	 
 }
