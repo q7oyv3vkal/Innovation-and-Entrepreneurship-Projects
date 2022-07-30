@@ -1,5 +1,3 @@
-#pragma once
-
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -97,16 +95,16 @@ string padding(string str)
 	{
 		res += DecToHex((int)str[i]);
 	}
-	cout << "输入消息的ASCII码为：" << endl;
-	for (int i = 0; i < res.size(); i++)
-	{
-		cout << res[i];
-		if ((i + 1) % 8 == 0)
-			cout << "  ";
-		if ((i + 1) % 64 == 0 || (i + 1) == res.size())
-			cout << endl;
-	}
-	cout << endl;
+	//cout << "输入消息的ASCII码为：" << endl;
+	//for (int i = 0; i < res.size(); i++)
+	//{
+	//	cout << res[i];
+	//	if ((i + 1) % 8 == 0)
+	//		cout << "  ";
+	//	if ((i + 1) % 64 == 0 || (i + 1) == res.size())
+	//		cout << endl;
+	//}
+	//cout << endl;
 	int res_length = res.size() * 4;       //The length of the string is in bin
 	res += "8";                             //hex：+8
 	while (res.size() % 128 != 112)
