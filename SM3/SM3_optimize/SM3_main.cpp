@@ -1,5 +1,5 @@
-//#include "SM3_basic.h"
-#include "SM3_optimize.h"
+#include "SM3_basic.h"
+//#include "SM3_optimize.h"
 
 int main()
 {
@@ -16,7 +16,6 @@ int main()
 		cout << "示例 " + to_string(num + 1) + " ：输入消息为字符串: " + str[num] << endl;
 		cout << endl;
 		string paddingValue = padding(str[num]);
-		cout << "填充后的消息为：" << endl;
 
 		for (int i = 0; i < paddingValue.size() / 64; i++)
 		{
