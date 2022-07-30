@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include <thread>
-#include <windows.h>
+#include <thread> #多线程
+#include <windows.h> 
+
+#线程数
 #define th_num 8
 #define m_bits 10000000
 
@@ -17,19 +19,6 @@ static void dump_buf_32(uint32_t* buf, uint32_t len)
 			i == len - 1 ? "\r\n" : "");
 	}
 }
-
-static void dump_buf_8(uint8_t* buf, uint32_t len)
-{
-	int i;
-	printf("buf:");
-
-	for (i = 0; i < len; i++) {
-		printf("%s%02x%s", i % 16 == 0 ? "\r\n\t" : " ",
-			buf[i],
-			i == len - 1 ? "\r\n" : "");
-	}
-}
-
 
 const uint32_t fk[4] = {
 	0xa3b1bac6,
