@@ -1,6 +1,7 @@
 from random import randint
 import math
 import Mysm3
+import time
 
 #椭圆曲线官方推荐参数
 p=0x8542D69E4C044F18E8B92435BF6FF7DE457283915C45517D722EDB8B08F1DFC3
@@ -90,15 +91,14 @@ def SM2_encrypt(m:str):
 f=open('E://text.txt','r')
 fstr=f.read()
 f.close()
-print("加密密文为:\n",fstr
+print("加密密文为:\n",fstr)
+start=time.time()
 c1,c2,c3=SM2_encrypt(fstr)
 c=(c1+c2+c3).upper()
+end=time.time()
 print('加密结果:\n')
-temp=0
 for i in range(len(c)):
     print(c[i*8:(i+1)*8],end=' ')
-    temp+=1
-    if temp==7:
-        temp=0
-        print()
+print("\n",end-start,"seconds)
+
 
