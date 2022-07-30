@@ -24,8 +24,6 @@ def ECMH(msg):
 def ECMH_append(hash, msg):
 
     hash_msg = sha256(str(msg).encode()).digest()
-    # while (int(hash_msg.hex(), 16) >= int(n, 16)):  # 为了让这个值处于（0，n-1）之间，如果大了就加盐
-    #     hash_msg = sha256(b'\x00' + hash_msg)
     # 只是利用其中函数,公钥私钥均设置为0就行
     sm2_c = sm2.CryptSM2(private_key="", public_key="")
     pri = int(hash_msg.hex(), 16)
