@@ -23,22 +23,35 @@ SM3_optimize.h（代码实现加速后的文件）
 例如可以将
 
 `for (int i = 0; i < str.size(); i++)`
+
 `{`
+
 `	if (str[i] >= 'A' && str[i] <= 'F')`
+
 `		bin += table[str[i] - 'A' + 10];`
+
 `	else`
+
 `		bin += table[str[i] - '0'];`
+
 `}`
 
 修改为
 
 `for (int i = 0; i < str.size(); i++)`
+
 `{`
+
 `	char temp = str[i];`
+
 `	if (temp >= 'A' && temp <= 'F')`
+
 `		bin += table[temp - 'A' + 10];`
+
 `	else`
+
 `		bin += table[temp - '0'];`
+
 `}`
   
   
@@ -51,27 +64,45 @@ SM3_optimize.h（代码实现加速后的文件）
 例如
 
 `for (int i = 0; i < str.size(); i++)`
+
 `{`
+
 `	if (str[i] >= 'A' && str[i] <= 'F')`
+
 `		bin += table[str[i] - 'A' + 10];`
+
 `	else`
+
 `		bin += table[str[i] - '0'];`
+
 `}`
 
 可以修改为
 
 `for (int i = 0; i < str.size(); i+=2)`
+
 `{`
+
 `	char temp = str[i];`
+
 `	char temp1 = str[i + 1];`
+
 `	if (temp >= 'A' && temp <= 'F')`
+
 `		bin += table[temp - 'A' + 10];`
+
 `	else`
+
 `		bin += table[temp - '0'];`
+
 `	if (temp1 >= 'A' && temp1 <= 'F')`
+
 `		bin += table[temp1 - 'A' + 10];`
+
 `	else`
+
 `		bin += table[temp1 - '0'];`
+
 `}`
 
 对于SIMD 指令集，一个寄存器可以储存多个过程变量，从而实现加速。
