@@ -119,13 +119,13 @@ SM4_basic.cpp(初始实现SM4的文件)
 
 ![image](https://github.com/q7oyv3vkal/Innovation-and-Entrepreneurship-Projects/blob/Image/1.png)
 
-由于单次运行时间较短，在测量时间时重复加密20次进行测量：
+由于单次运行时间较短，在测量时间时重复加密1000次进行测量：
 进行基础加密时的截图为：
 
-![image](https://github.com/q7oyv3vkal/Innovation-and-Entrepreneurship-Projects/blob/main/image/SM3_opbasic.png)
+![image](https://github.com/q7oyv3vkal/Innovation-and-Entrepreneurship-Projects/blob/main/image/op1000.png)
 
 对SM4进行软件加速后加密的截图为：
 
-![image](https://github.com/q7oyv3vkal/Innovation-and-Entrepreneurship-Projects/blob/main/image/SM3_opop.png)
+![image](https://github.com/q7oyv3vkal/Innovation-and-Entrepreneurship-Projects/blob/main/image/oped1000.png)
 
 5.个人具体贡献：独立完成该项目编写
