@@ -1,44 +1,83 @@
 **由于我初次提交项目时代码中的注释部分较少，且格式不符合助教于7月25日在QQ群中发布的提交作业要求。因此在项目初次提交后于7月25日-7月31日重新创建文件夹整理项目，原始上传文档部分保存在其他branch中，并且进行修改文件夹等部分操作可能会影响github网站提交时间的认证，希望老师能理解。**
 
-1.小组成员：202000460066 杨凯歌（个人单独一组）
+1.个人信息
+```
 
-2.github账户名称：q7oyv3vkal 
+小组成员：杨凯歌（个人单独一组）
 
-3.对应贡献：所有完成的项目均为个人完成
+学号：202000460066
 
-4.已完成的项目：
+github账户名称：q7oyv3vkal
+```
 
-以下项目均由本人独自完成，不再赘述。
+2.已完成项目以及对应项目(以下项目均由本人完成，以下不再赘述。)
 
-implement the naïve birthday attack of reduced SM3
+SM3
 
-implement the Rho method of reduced SM3
 
-implement length extension attack for SM3, SHA256, etc
+```
 
-do your best to optimize SM3 implementation (software)
+impl SM3：/SM3/SM3_basic
 
-Impl Merkle Tree following RFC6962
+implement the naïve birthday attack of reduced SM3：/SM3/SM3_birthday_attack
 
-report on the application of this deduce technique in Ethereum with ECDSA
+implement the Rho method of reduced SM3：/SM3/SM3_rho
 
-impl sm2 with RFC6979
+implement length extension attack for SM3, SHA256, etc：/SM3/SM3_length_extention_attack
 
-Implement the above ECMH scheme
+do your best to optimize SM3 implementation (software)：/SM3/SM3_optimize
 
-Implement a PGP scheme with SM2
+Impl Merkle Tree following RFC6962：/SM3/Merkle_tree
 
-Find a key with hash value “sdu_cst_20220610” under a message composed of your name followed by your student ID. For example, “San Zhan 202000460001”.
+report on the application of this deduce technique in Ethereum with ECDSA: /ECDSA
 
-impl sm4（老师上课所提）
+```
 
-do your best to optimize SM4 implementation (software)（老师上课所提）
 
-5.未完成的项目
+SM2
+
+```
+impl sm2 with RFC6979: /SM2/SM2_basic
+
+Implement the above ECMH scheme: /SM2/SM2_ECMH
+
+Implement a PGP scheme with SM2: /SM2/SM2_PGP
+
+Implement sm2 2P sign with real network communication: /SM2/SM2_2P_sign
+
+```
+
+SM4(老师上课曾提到，但清单与ppt中未给出)
+
+```
+impl sm4: /SM4/SM4_basic
+
+Use SM4 to encrypt files: /SM4/SM4_file
+
+do your best to optimize SM4 implementation (software): /SM4/SM4_op
+
+```
+
+bitcoin
+
+```
+Find a key with hash value “sdu_cst_20220610” under a message composed of your name followed by your student ID. For example, “San Zhan 202000460001”.: /MEOWHASH
+
+```
+
+
+
+3.未完成的项目
+
+
+
+```
 
 Try to Implement this scheme(below)
 
-verify the above pitfalls with proof-of-concept cod
+verify the above pitfalls with proof-of-concept code
+
+implement sm2 2P decrypt with real network communication
 
 PoC impl of the scheme, or do implement analysis by Google
 
@@ -49,3 +88,8 @@ forge a signature to pretend that you are Satoshi
 research report on MPT
 
 Find a 64-byte message under some k fulfilling that their hash value is symmetrical
+
+
+Write a circuit to prove that your CET8 grade is larger than 425
+
+```
