@@ -1,4 +1,5 @@
-**由于我初次提交项目时代码中的注释部分较少，且格式不符合助教于7月25日在QQ群中发布的提交作业要求。因此在项目初次提交后于7月25日-7月31日重新创建文件夹整理项目，原始上传文档部分保存在其他branch中，并且进行修改文件夹等部分操作可能会影响github网站提交时间的认证，希望老师能理解。**
+**由于我初次提交项目时代码中的注释部分较少，且格式不符合助教于7月25日在QQ群中发布的提交作业要求。因此在项目初次提交后于7月25日-7月31日重新创建文件夹整理项目
+，并且进行修改文件夹等部分操作。原始上传文档部分保存在其他branch中，这些修改可能会影响github网站提交时间的认证，希望老师能理解。**
 
 1.个人信息
 ```
@@ -58,7 +59,7 @@ do your best to optimize SM4 implementation (software): /SM4/SM4_op
 
 ```
 
-bitcoin
+Bitcoin
 
 ```
 Find a key with hash value “sdu_cst_20220610” under a message composed of your name followed by your student ID. For example, “San Zhan 202000460001”.: /MEOWHASH
@@ -88,7 +89,6 @@ forge a signature to pretend that you are Satoshi
 research report on MPT
 
 Find a 64-byte message under some k fulfilling that their hash value is symmetrical
-
 
 Write a circuit to prove that your CET8 grade is larger than 425
 
