@@ -21,7 +21,7 @@ def verifyECDSAsecp256k1(msg, signature, pubKey):
 
 
 # ECDSA签署消息
-msg = "ECDSA签署消息"
+msg = "Message for ECDSA signing"
 privKey = secrets.randbelow(generator_secp256k1.order())
 signature = signECDSAsecp256k1(msg, privKey)
 print("消息:", msg)
@@ -36,7 +36,7 @@ print("私钥: (" + hex(pubKey[0]) + ", " + hex(pubKey[1]) + ")")
 print("签名是否有效?", valid)
 
 # ECDSA验证篡改签名
-msg = "干扰信息"
+msg = "Tampered message"
 valid = verifyECDSAsecp256k1(msg, signature, pubKey)
 print("\n消息:", msg)
 print("签名是否有效(篡改后)?", valid)
