@@ -6,6 +6,8 @@
 
 SM4_optimize.cpp（优化过后的文件）
 
+SM4_op_SIMD.cpp(使用SIMD加速)
+
 SM4_basic.cpp(初始实现SM4的文件)
 
 3.具体代码说明：
